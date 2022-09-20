@@ -1,3 +1,6 @@
+//Understand the code below
+//We are building a telegram bot that will listen to the events from the smart contract and push them to a telegram channel or group
+
 require("dotenv").config()
 const { Contract } = require("ethers")
 const { ethers } = require("hardhat")
@@ -396,32 +399,50 @@ TGBOT.on("message", (message) => {
 let ethAddresses = new Contract(
     ETH_CONTRACT_ADDRESS,
     ETH_CONTRACT_ABI,
-    providerETH,
+    providerETH
 )
 
 let bnbAddresses = new Contract(
     BNB_CONTRACT_ADDRESS,
     BNB_CONTRACT_ABI,
-    providerBNB,
+    providerBNB
 )
+
+const addresses = [
+    "0xE4A040AE4bAD72CdC5594695d2f8Efac0fA873cf" /** Jelle zijn wallet*/,
+    "0x55f510bE6AB4c7E07EC6EE637aa83574975D6898" /** random wallet*/,
+    "",
+    "",
+    "",
+]
+
+const TRANSFER_THRESHOLD = 0.01 * 10 ** 18 //18 decimals, Current amount: 10 tokens.
 
 const main = async () => {
     const nameETH = await ethAddresses.name()
     ethAddresses.on("Transfer", (from, to, amount, data) => {
-        console.log("name:", nameETH)
-        console.log("from:", from)
-        console.log("amount:", amount.toString(), "wei")
-        console.log("to:", to)
-        console.log(`data: https://etherscan.io/tx/${data.transactionHash}\n`)
+        if (amount.toString() && addresses >= TRANSFER_THRESHOLD) {
+            console.log("name:", nameETH)
+            console.log("from:", from)
+            console.log("amount:", amount.toString(), "wei")
+            console.log("to:", to)
+            console.log(
+                `data: https://etherscan.io/tx/${data.transactionHash}\n`
+            )
+        }
     })
 
     const nameBNB = await bnbAddresses.name()
     bnbAddresses.on("Transfer", (from, to, amount, data) => {
-        console.log("name:", nameBNB)
-        console.log("from:", from)
-        console.log("amount:", amount.toString(), "wei")
-        console.log("to:", to)
-        console.log(`data: https://bscscan.com/tx/${data.transactionHash}\n`)
+        if (amount.toString() && addresses >= TRANSFER_THRESHOLD) {
+            console.log("name:", nameBNB)
+            console.log("from:", from)
+            console.log("amount:", amount.toString(), "wei")
+            console.log("to:", to)
+            console.log(
+                `data: https://bscscan.com/tx/${data.transactionHash}\n`
+            )
+        }
     })
 }
 
