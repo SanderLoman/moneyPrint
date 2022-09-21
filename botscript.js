@@ -416,33 +416,60 @@ const addresses = [
     "",
 ]
 
-const TRANSFER_THRESHOLD = 0.01 * 10 ** 18 //18 decimals, Current amount: 10 tokens.
+//if a new block is mined, check if the addresses have received any tokens
+// providerETH.on("block", async (blockNumber) => {
+//     console.log("New block mined: " + blockNumber)
+//     for (let i = 0; i < addresses.length; i++) {
+//         let balance = await ethAddresses.balanceOf(addresses[i])
+//         if (balance > 0) {
+//             console.log("New ETH received: " + balance)
+//             TGBOT.sendMessage(
+//                 "123456789",
+//                 "New ETH received: " + balance + " at address: " + addresses[i]
+//             )
+//         }
+//     }
+// })
+
+// providerBNB.on("block", async (blockNumber) => {
+//     console.log("New block mined: " + blockNumber)
+//     for (let i = 0; i < addresses.length; i++) {
+//         let balance = await bnbAddresses.balanceOf(addresses[i])
+//         if (balance > 0) {
+//             console.log("New BNB received: " + balance)
+//             TGBOT.sendMessage(
+//                 "123456789",
+//                 "New BNB received: " + balance + " at address: " + addresses[i]
+//             )
+//         }
+//     }
+// })
+
+//^^^ change back tmr note to self.
+
+
 
 const main = async () => {
     const nameETH = await ethAddresses.name()
     ethAddresses.on("Transfer", (from, to, amount, data) => {
-        if (amount.toString() && addresses >= TRANSFER_THRESHOLD) {
-            console.log("name:", nameETH)
-            console.log("from:", from)
-            console.log("amount:", amount.toString(), "wei")
-            console.log("to:", to)
-            console.log(
-                `data: https://etherscan.io/tx/${data.transactionHash}\n`
-            )
-        }
+        console.log("name:", nameETH)
+        console.log("from:", from)
+        console.log("amount:", amount.toString(), "wei")
+        console.log("to:", to)
+        console.log(
+            `data: https://etherscan.io/tx/${data.transactionHash}\n`
+        )
     })
 
     const nameBNB = await bnbAddresses.name()
     bnbAddresses.on("Transfer", (from, to, amount, data) => {
-        if (amount.toString() && addresses >= TRANSFER_THRESHOLD) {
-            console.log("name:", nameBNB)
-            console.log("from:", from)
-            console.log("amount:", amount.toString(), "wei")
-            console.log("to:", to)
-            console.log(
-                `data: https://bscscan.com/tx/${data.transactionHash}\n`
-            )
-        }
+        console.log("name:", nameBNB)
+        console.log("from:", from)
+        console.log("amount:", amount.toString(), "wei")
+        console.log("to:", to)
+        console.log(
+            `data: https://bscscan.com/tx/${data.transactionHash}\n`
+        )
     })
 }
 
