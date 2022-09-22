@@ -431,6 +431,9 @@ const addresses = [
 
 const main = async () => {
 
+    console.log(`Running.
+    
+    Waiting for transactions...`);
 
     if (addresses.includes(addresses) === true) {
         const nameETH = await ethAddresses.name()
@@ -442,8 +445,6 @@ const main = async () => {
             console.log(`data: https://etherscan.io/tx/${data.transactionHash}\n`)
         })
     }
-
-
 
     // providerETH.on("block", async (blockNumber) => {
     //     console.log("New block mined: " + blockNumber)
