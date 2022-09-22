@@ -1,6 +1,3 @@
-//Understand the code below
-//We are building a telegram bot that will listen to the events from the smart contract and push them to a telegram channel or group
-
 require("dotenv").config()
 const { Contract } = require("ethers")
 const { ethers } = require("hardhat")
@@ -388,13 +385,13 @@ const BNB_CONTRACT_ABI = [
     },
 ]
 
-const telegramBot = require("node-telegram-bot-api")
-const apiKEY = process.env.TG_API_KEY
-const TGBOT = new telegramBot(apiKEY, { polling: true })
+// const telegramBot = require("node-telegram-bot-api")
+// const apiKEY = process.env.TG_API_KEY
+// const TGBOT = new telegramBot(apiKEY, { polling: true })
 
-TGBOT.on("message", (message) => {
-    TGBOT.sendMessage(message.chat.id, "Dit is een test.")
-})
+// TGBOT.on("message", (message) => {
+//     TGBOT.sendMessage(message.chat.id, "Dit is een test.")
+// })
 
 let ethAddresses = new Contract(
     ETH_CONTRACT_ADDRESS,
@@ -416,61 +413,68 @@ const addresses = [
     "",
 ]
 
-//if a new block is mined, check if the addresses have received any tokens
-// providerETH.on("block", async (blockNumber) => {
-//     console.log("New block mined: " + blockNumber)
-//     for (let i = 0; i < addresses.length; i++) {
-//         let balance = await ethAddresses.balanceOf(addresses[i])
-//         if (balance > 0) {
-//             console.log("New ETH received: " + balance)
-//             TGBOT.sendMessage(
-//                 "123456789",
-//                 "New ETH received: " + balance + " at address: " + addresses[i]
-//             )
-//         }
+// //if an address from the array addresses trades an alt coin for ETH, then log that data in the console
+
+// ethAddresses.on("Transfer", (from, to, value) => {
+//     if (addresses.includes(from)) {
+//         console.log("ETH transfer from: ", from, "to: ", to, "value: ", value)
 //     }
 // })
 
-// providerBNB.on("block", async (blockNumber) => {
-//     console.log("New block mined: " + blockNumber)
-//     for (let i = 0; i < addresses.length; i++) {
-//         let balance = await bnbAddresses.balanceOf(addresses[i])
-//         if (balance > 0) {
-//             console.log("New BNB received: " + balance)
-//             TGBOT.sendMessage(
-//                 "123456789",
-//                 "New BNB received: " + balance + " at address: " + addresses[i]
-//             )
-//         }
+// //if an address from the array addresses trades an alt coin for BNB, then log that data in the console
+
+// bnbAddresses.on("Transfer", (from, to, value) => {
+//     if (addresses.includes(from)) {
+//         console.log("BNB transfer from: ", from, "to: ", to, "value: ", value)
 //     }
 // })
-
-//^^^ change back tmr note to self.
-
-
 
 const main = async () => {
-    const nameETH = await ethAddresses.name()
-    ethAddresses.on("Transfer", (from, to, amount, data) => {
-        console.log("name:", nameETH)
-        console.log("from:", from)
-        console.log("amount:", amount.toString(), "wei")
-        console.log("to:", to)
-        console.log(
-            `data: https://etherscan.io/tx/${data.transactionHash}\n`
-        )
-    })
 
-    const nameBNB = await bnbAddresses.name()
-    bnbAddresses.on("Transfer", (from, to, amount, data) => {
-        console.log("name:", nameBNB)
-        console.log("from:", from)
-        console.log("amount:", amount.toString(), "wei")
-        console.log("to:", to)
-        console.log(
-            `data: https://bscscan.com/tx/${data.transactionHash}\n`
-        )
-    })
+
+    if (addresses.includes(addresses) === true) {
+        const nameETH = await ethAddresses.name()
+        ethAddresses.on("Transfer", (from, to, amount, data) => {
+            console.log("name:", nameETH)
+            console.log("from:", from)
+            console.log("amount:", amount.toString(), "wei")
+            console.log("to:", to)
+            console.log(`data: https://etherscan.io/tx/${data.transactionHash}\n`)
+        })
+    }
+
+
+
+    // providerETH.on("block", async (blockNumber) => {
+    //     console.log("New block mined: " + blockNumber)
+    //     for (let i = 0; i < addresses.length; i++) {
+    //         let balance = await ethAddresses.balanceOf(addresses[i])
+    //         if (balance > 0) {
+    //             console.log("New ETH received: " + balance)
+    //         }
+    //     }
+    // })
+
+    if (addresses.includes(addresses === true)) {
+        const nameBNB = await bnbAddresses.name()
+        bnbAddresses.on("Transfer", (from, to, amount, data) => {
+            console.log("name:", nameBNB)
+            console.log("from:", from)
+            console.log("amount:", amount.toString(), "wei")
+            console.log("to:", to)
+            console.log(`data: https://bscscan.com/tx/${data.transactionHash}\n`)
+        })
+    }
+
+    // providerBNB.on("block", async (blockNumber) => {
+    //     console.log("New block mined: " + blockNumber)
+    //     for (let j = 0; j < addresses.length; j++) {
+    //         let balance = await bnbAddresses.balanceOf(addresses[j])
+    //         if (balance > 0) {
+    //             console.log("New BNB received: " + balance)
+    //         }
+    //     }
+    // })
 }
 
 main().catch((error) => {
