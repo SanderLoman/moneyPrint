@@ -668,14 +668,6 @@ const GOE_CONTRACT_ABI = [
     },
 ]
 
-// const telegramBot = require("node-telegram-bot-api")
-// const apiKEY = process.env.TG_API_KEY
-// const TGBOT = new telegramBot(apiKEY, { polling: true })
-
-// TGBOT.on("message", (message) => {
-//     TGBOT.sendMessage(message.chat.id, "Dit is een test.")
-// })
-
 let ethAddresses = new Contract(
     ETH_CONTRACT_ADDRESS,
     ETH_CONTRACT_ABI,
@@ -702,91 +694,54 @@ const addresses = [
     "",
 ]
 
-// //if an address from the array addresses trades an alt coin for ETH, then log that data in the console
-
-// ethAddresses.on("Transfer", (from, to, value) => {
-//     if (addresses.includes(from)) {
-//         console.log("ETH transfer from: ", from, "to: ", to, "value: ", value)
-//     }
-// })
-
-// //if an address from the array addresses trades an alt coin for BNB, then log that data in the console
-
-// bnbAddresses.on("Transfer", (from, to, value) => {
-//     if (addresses.includes(from)) {
-//         console.log("BNB transfer from: ", from, "to: ", to, "value: ", value)
-//     }
-// })
-
 const main = async () => {
     console.log(`Running.
     
     Waiting for transactions...`)
 
     const nameETH = await ethAddresses.name()
-    ethAddresses.on("Transfer", (from, to, amount, data) => {
-        //if an address from the array addresses trades an alt coin for ETH, then log that data in the console
-        if (addresses.includes(from)) {
-            console.log(
-                `${nameETH} transfer from: ${from} to: ${to} amount: ${amount} data: ${data}`
-            )
-            // console.log("name:", nameETH)
-            // console.log("from:", from)
-            // console.log("amount:", amount.toString(), "wei")
-            // console.log("to:", to)
-            // console.log(`data: https://etherscan.io/tx/${data.transactionHash}\n`)
+
+    ethAddresses.on("Transfer", (from, to, value, data) => {
+        for (let i = 0; i < addresses.length; i++) {
+            if (addresses[i] === from) {
+                console.log(`Name: ${nameETH}`)
+                console.log(`From: ${from}`)
+                console.log(`To: ${to}`)
+                console.log(`TxHash: https://etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Value: ${ethers.utils.formatUnits(value, 18)} ETH\n`)
+            }
         }
     })
 
-    // providerETH.on("block", async (blockNumber) => {
-    //     console.log("New block mined: " + blockNumber)
-    //     for (let i = 0; i < addresses.length; i++) {
-    //         let balance = await ethAddresses.balanceOf(addresses[i])
-    //         if (balance > 0) {
-    //             console.log("New ETH received: " + balance)
-    //         }
-    //     }
-    // })
-
     const nameBNB = await bnbAddresses.name()
-    bnbAddresses.on("Transfer", (from, to, amount, data) => {
-        //if an address from the array addresses trades an alt coin for BNB, then log that data in the console
-        if (addresses.includes(from)) {
-            console.log(
-                `${nameBNB} transfer from: ${from} to: ${to} amount: ${amount} data: ${data}`
-            )
-            // console.log("name:", nameBNB)
-            // console.log("from:", from)
-            // console.log("amount:", amount.toString(), "wei")
-            // console.log("to:", to)
-            // console.log(`data: https://bscscan.com/tx/${data.transactionHash}\n`)
+
+    bnbAddresses.on("Transfer", (from, to, value, data) => {
+        for (let j = 0; j < addresses.length; j++) {
+            if (from === addresses[j]) {
+                console.log(`Name: ${nameBNB}`)
+                console.log(`From: ${from}`)
+                console.log(`To: ${to}`)
+                console.log(`TxHash: https://bscscan.com/tx/${data.transactionHash}`)
+                console.log(`Value: ${ethers.utils.formatUnits(value, 18)} BNB\n`)
+            }
         }
     })
 
     const nameGOE = await goeAddresses.name()
-    goeAddresses.on("Transfer", (from, to, amount, data) => {
-        //if an address from the array addresses trades an alt coin for GOE, then log that data in the console
-        if (addresses.includes(from)) {
-            console.log(
-                `${nameGOE} transfer from: ${from} to: ${to} amount: ${amount} data: ${data}`
-            )
-            // console.log("name:", nameGOE)
-            // console.log("from:", from)
-            // console.log("amount:", amount.toString(), "wei")
-            // console.log("to:", to)
-            // console.log(`data: https://bscscan.com/tx/${data.transactionHash}\n`)
+
+    goeAddresses.on("Transfer", (from, to, value, data) => {
+        for (let k = 0; k < addresses.length; k++) {
+            if (from === addresses[k]) {
+                console.log(`Name: Goerli ${nameGOE}`)
+                console.log(`From: ${from}`)
+                console.log(`To: ${to}`)
+                console.log(`TxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Value: ${ethers.utils.formatUnits(value, 18)} GOE\n`)
+            }
         }
     })
 
-    // providerBNB.on("block", async (blockNumber) => {
-    //     console.log("New block mined: " + blockNumber)
-    //     for (let j = 0; j < addresses.length; j++) {
-    //         let balance = await bnbAddresses.balanceOf(addresses[j])
-    //         if (balance > 0) {
-    //             console.log("New BNB received: " + balance)
-    //         }
-    //     }
-    // })
+
 }
 
 main().catch((error) => {
