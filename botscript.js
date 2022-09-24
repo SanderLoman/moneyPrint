@@ -388,6 +388,7 @@ const BNB_CONTRACT_ABI = [
         type: "function",
     },
 ]
+
 const GOE_CONTRACT_ABI = [
     {
         constant: true,
@@ -688,10 +689,9 @@ let goeAddresses = new Contract(
 
 const addresses = [
     "0xE4A040AE4bAD72CdC5594695d2f8Efac0fA873cf" /** Jelle wallet*/,
-    "0x55f510bE6AB4c7E07EC6EE637aa83574975D6898" /** random wallet*/,
+    "0x55f510bE6AB4c7E07EC6EE637aa83574975D6898" /** Random wallet*/,
     "0x7B23298319Ea680e73059AE6eB1fF4162C9bD89e" /** Sander wallet*/,
-    "",
-    "",
+    "0xB6a4f41c83aeB4Bf9E0DcC8509A5cE6D73743c0f" /** Test wallet*/,
 ]
 
 const main = async () => {
@@ -699,11 +699,13 @@ const main = async () => {
     
     Waiting for transactions...`)
 
+    //ETH mainnet
+
     const nameETH = await ethAddresses.name()
 
     ethAddresses.on("Transfer", (from, to, value, data) => {
         for (let i = 0; i < addresses.length; i++) {
-            if (addresses[i] === from) {
+            if (from === addresses[i]) {
                 console.log(`Name: ${nameETH}`)
                 console.log(`From: ${from}`)
                 console.log(`To: ${to}`)
@@ -712,6 +714,8 @@ const main = async () => {
             }
         }
     })
+
+    //BNB mainnet
 
     const nameBNB = await bnbAddresses.name()
 
@@ -727,6 +731,8 @@ const main = async () => {
         }
     })
 
+    //Goerli testnet
+
     const nameGOE = await goeAddresses.name()
 
     goeAddresses.on("Transfer", (from, to, value, data) => {
@@ -740,8 +746,6 @@ const main = async () => {
             }
         }
     })
-
-
 }
 
 main().catch((error) => {
