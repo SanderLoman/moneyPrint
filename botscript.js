@@ -695,10 +695,14 @@ let goeAddresses = new Contract(
 )
 
 const addresses = [
-    "0xE4A040AE4bAD72CdC5594695d2f8Efac0fA873cf" /** Jelle wallet*/,
-    "0x55f510bE6AB4c7E07EC6EE637aa83574975D6898" /** Random wallet*/,
-    "0x7B23298319Ea680e73059AE6eB1fF4162C9bD89e" /** Sander wallet*/,
-    "0xB6a4f41c83aeB4Bf9E0DcC8509A5cE6D73743c0f" /** Test wallet*/,
+    "0xE4A040AE4bAD72CdC5594695d2f8Efac0fA873cf" /** Jelle wallet  */,
+    "0x55f510bE6AB4c7E07EC6EE637aa83574975D6898" /** Random wallet */,
+    "0x7B23298319Ea680e73059AE6eB1fF4162C9bD89e" /** Sander wallet */,
+    "0xB6a4f41c83aeB4Bf9E0DcC8509A5cE6D73743c0f" /** Test wallet   */,
+    "0xe5aB89E74af448043e1a4906E31E4C3eDd3f9662" /** random wallet */,
+    "0xA7D04CA1E2E7008A807eB6Fd34D8A8E7ce45B865" /** random wallet */,
+    "0xbbA6aDd128D8d4fBc55AbD7769c92D5A73bDc31d" /** random wallet */
+
 ]
 
 const main = async () => {
