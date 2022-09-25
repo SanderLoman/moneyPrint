@@ -711,11 +711,7 @@ const main = async () => {
     ethAddresses.on("Transfer", (from, to, value, data) => {
         for (let i = 0; i < addresses.length; i++) {
             if (from === addresses[i]) {
-                console.log(`Name: ${nameETH}`)
-                console.log(`From: ${from}`)
-                console.log(`To: ${to}`)
-                console.log(`TxHash: https://etherscan.io/tx/${data.transactionHash}`)
-                console.log(`Value: ${ethers.utils.formatUnits(value, 18)} ETH\n`)
+                bot.sendMessage("-1001613920275", `Name: ${nameETH}\n From: ${from}\n To: ${to}\n TxHash: https://bscscan.com/tx/${data.transactionHash}\n Value: ${ethers.utils.formatUnits(value, 18)} ETH`)
             }
         }
     })
@@ -727,11 +723,7 @@ const main = async () => {
     bnbAddresses.on("Transfer", (from, to, value, data) => {
         for (let j = 0; j < addresses.length; j++) {
             if (from === addresses[j]) {
-                console.log(`Name: ${nameBNB}`)
-                console.log(`From: ${from}`)
-                console.log(`To: ${to}`)
-                console.log(`TxHash: https://bscscan.com/tx/${data.transactionHash}`)
-                console.log(`Value: ${ethers.utils.formatUnits(value, 18)} BNB\n`)
+                bot.sendMessage("-1001613920275", `Name: ${nameBNB}\n From: ${from}\n To: ${to}\n TxHash: https://bscscan.com/tx/${data.transactionHash}\n Value: ${ethers.utils.formatUnits(value, 18)} BNB`)
             }
         }
     })
@@ -740,14 +732,10 @@ const main = async () => {
 
     const nameGOE = await goeAddresses.name()
 
-    goeAddresses.on("Transfer", (from, to, value, data) => {
+    goeAddresses.on("Deposit", (dst, wad) => {
         for (let k = 0; k < addresses.length; k++) {
-            if (from === addresses[k]) {
-                console.log(`Name: Goerli ${nameGOE}`)
-                console.log(`From: ${from}`)
-                console.log(`To: ${to}`)
-                console.log(`TxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
-                console.log(`Value: ${ethers.utils.formatUnits(value, 18)} GOE\n`)
+            if (dst === addresses[k]) {
+                bot.sendMessage("-1001613920275", `Name: ${nameGOE}\n From: ${dst}\n To: ${wad}\n`)
             }
         }
     })
