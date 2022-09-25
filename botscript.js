@@ -1,11 +1,18 @@
 require("dotenv").config()
 const { Contract } = require("ethers")
 const { ethers } = require("hardhat")
+const telegramBot = require("node-telegram-bot-api")
+
+const TGtoken = process.env.TG_API_KEY
+
+const bot = new telegramBot(TGtoken, { polling: true })
 
 const rpcETH = process.env.ETH_RPC_URL
 const providerETH = new ethers.providers.WebSocketProvider(rpcETH)
+
 const rpcBNB = process.env.BNB_RPC_URL
 const providerBNB = new ethers.providers.WebSocketProvider(rpcBNB)
+
 const rpcGOE = process.env.GOE_RPC_URL
 const providerGOE = new ethers.providers.WebSocketProvider(rpcGOE)
 
@@ -695,9 +702,7 @@ const addresses = [
 ]
 
 const main = async () => {
-    console.log(`Running.
-    
-    Waiting for transactions...`)
+    console.log(`Running! Waiting for transactions...\n`)
 
     //ETH mainnet
 
