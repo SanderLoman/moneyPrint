@@ -701,8 +701,7 @@ const addresses = [
     "0xB6a4f41c83aeB4Bf9E0DcC8509A5cE6D73743c0f" /** Test wallet   */,
     "0xe5aB89E74af448043e1a4906E31E4C3eDd3f9662" /** random wallet */,
     "0xA7D04CA1E2E7008A807eB6Fd34D8A8E7ce45B865" /** random wallet */,
-    "0xbbA6aDd128D8d4fBc55AbD7769c92D5A73bDc31d" /** random wallet */
-
+    "0xbbA6aDd128D8d4fBc55AbD7769c92D5A73bDc31d" /** random wallet */, 
 ]
 
 const main = async () => {
@@ -715,7 +714,7 @@ const main = async () => {
     ethAddresses.on("Transfer", (from, to, value, data) => {
         for (let i = 0; i < addresses.length; i++) {
             if (from === addresses[i]) {
-                bot.sendMessage("-1001613920275", `Name: ${nameETH}\n From: ${from}\n To: ${to}\n TxHash: https://bscscan.com/tx/${data.transactionHash}\n Value: ${ethers.utils.formatUnits(value, 18)} ETH`)
+                bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
             }
         }
     })
@@ -725,10 +724,10 @@ const main = async () => {
     const nameBNB = await bnbAddresses.name()
 
     bnbAddresses.on("Transfer", (from, to, value, data) => {
-        for (let j = 0; j < addresses.length; j++) {
+       for (let j = 0; j < addresses.length; j++) {
             if (from === addresses[j]) {
-                bot.sendMessage("-1001613920275", `Name: ${nameBNB}\n From: ${from}\n To: ${to}\n TxHash: https://bscscan.com/tx/${data.transactionHash}\n Value: ${ethers.utils.formatUnits(value, 18)} BNB`)
-            }
+                bot.sendMessage("-1001613920275", `Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
+           }
         }
     })
 
@@ -736,10 +735,10 @@ const main = async () => {
 
     const nameGOE = await goeAddresses.name()
 
-    goeAddresses.on("Deposit", (dst, wad) => {
+    goeAddresses.on("Transfer", (from, to, value, data) => {
         for (let k = 0; k < addresses.length; k++) {
-            if (dst === addresses[k]) {
-                bot.sendMessage("-1001613920275", `Name: ${nameGOE}\n From: ${dst}\n To: ${wad}\n`)
+            if (from === addresses[k]) {
+                bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} GOE\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
             }
         }
     })
