@@ -1,1 +1,0 @@
-script: node botscript.js
