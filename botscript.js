@@ -16,9 +16,12 @@ const providerBNB = new ethers.providers.WebSocketProvider(rpcBNB)
 const rpcGOE = process.env.GOE_RPC_URL
 const providerGOE = new ethers.providers.WebSocketProvider(rpcGOE)
 
-const ETH_CONTRACT_ADDRESS = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"
-const BNB_CONTRACT_ADDRESS = "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
-const GOE_CONTRACT_ADDRESS = "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6"
+const ETH_CONTRACT_ADDRESS = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2" //ETH
+const BNB_CONTRACT_ADDRESS = "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c" //BNB
+const GOE_CONTRACT_ADDRESS = "0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6" //GOE
+const PAN_CONTRACT_ADDRESS = "0x10ed43c718714eb63d5aa57b78b54704e256024e" //PAN
+const Uv2_CONTRACT_ADDRESS = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D" //ETH
+const Uv3_CONTRACT_ADDRESS = "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45" //ETH
 
 const ETH_CONTRACT_ABI = [
     {
@@ -676,6 +679,24 @@ const GOE_CONTRACT_ABI = [
     },
 ]
 
+let Uv2Addresses = new Contract(
+    Uv2_CONTRACT_ADDRESS,
+    ETH_CONTRACT_ABI,
+    providerETH
+)
+
+let Uv3Addresses = new Contract(
+    Uv3_CONTRACT_ADDRESS,
+    ETH_CONTRACT_ABI,
+    providerETH
+)
+
+let panAddresses = new Contract(
+    PAN_CONTRACT_ADDRESS,
+    BNB_CONTRACT_ABI,
+    providerBNB
+)
+
 let ethAddresses = new Contract(
     ETH_CONTRACT_ADDRESS,
     ETH_CONTRACT_ABI,
@@ -701,47 +722,72 @@ const addresses = [
     "0xB6a4f41c83aeB4Bf9E0DcC8509A5cE6D73743c0f" /** Test wallet   */,
     "0xe5aB89E74af448043e1a4906E31E4C3eDd3f9662" /** random wallet */,
     "0xA7D04CA1E2E7008A807eB6Fd34D8A8E7ce45B865" /** random wallet */,
-    "0xbbA6aDd128D8d4fBc55AbD7769c92D5A73bDc31d" /** random wallet */, 
+    "0xbbA6aDd128D8d4fBc55AbD7769c92D5A73bDc31d" /** random wallet */,
 ]
 
 const main = async () => {
     console.log(`Running! Waiting for transactions...\n`)
 
-    //ETH mainnet
-
+    const nameBNB = await bnbAddresses.name()
     const nameETH = await ethAddresses.name()
-
-    ethAddresses.on("Transfer", (from, to, value, data) => {
-        for (let i = 0; i < addresses.length; i++) {
-            if (from == addresses[i]) {
+    const nameGOE = await goeAddresses.name()
+    
+    //ETH
+    Uv2Addresses.on("Transfer", (from, to, value, data) => {
+        for (let f = 0; f < addresses.length; f++) {
+            if (from === addresses[f]) {
                 bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
                 console.log(`Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
-       }
+        }
     })
 
-    //BNB mainnet
+    //ETH
+    Uv3Addresses.on("Transfer", (from, to, value, data) => {
+        for (let g = 0; g < addresses.length; g++) {
+            if (from === addresses[g]) {
+                bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+            }
+        }
+    })
 
-    const nameBNB = await bnbAddresses.name()
-
-    bnbAddresses.on("Transfer", (from, to, value, data) => {
-       for (let j = 0; j < addresses.length; j++) {
-            if (from == addresses[j]) {
+    //BNB
+    panAddresses.on("Transfer", (from, to, value, data) => {
+        for (let h = 0; h < addresses.length; h++) {
+            if (from === addresses[h]) {
                 bot.sendMessage("-1001613920275", `Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
                 console.log(`Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
             }
         }
     })
 
-    //Goerli testnet
+    //ETH
+    ethAddresses.on("Transfer", (from, to, value, data) => {
+        for (let i = 0; i < addresses.length; i++) {
+            if (from === addresses[i]) {
+                bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+            }
+        }
+    })
 
-    const nameGOE = await goeAddresses.name()
+    //BNB
+    bnbAddresses.on("Transfer", (from, to, value, data) => {
+        for (let j = 0; j < addresses.length; j++) {
+            if (from === addresses[j]) {
+                bot.sendMessage("-1001613920275", `Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
+            }
+        }
+    })
 
-    goeAddresses.on("Transfer", (address, to, value, data) => {
+    //GOE
+    goeAddresses.on("Transfer", (from, to, value, data) => {
         for (let k = 0; k < addresses.length; k++) {
-            if (address == addresses[k]) {
-                bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${address}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
-                console.log(`Name: ${nameGOE}\nFrom: ${address}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
+            if (from === addresses[k]) {
+                bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
             }
         }
     })
@@ -751,6 +797,3 @@ main().catch((error) => {
     console.error(error)
     process.exit(1)
 })
-
-
-// console.log(`Name: ${nameGOE}\nFrom: ${src}\nTo: ${dst}\nValue: ${ethers.utils.formatUnits(wad, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}
