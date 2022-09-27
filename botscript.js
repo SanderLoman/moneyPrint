@@ -769,12 +769,12 @@ const main = async () => {
     const nameGOE = await goeAddresses.name()
 
     //ETH
-    Uv2Addresses.on("Transfer", (from, to, value, data) => {
+    Uv2Addresses.on("Transfer", (src, dst, wad, data) => {
         for (let f = 0; f < addresses.length; f++) {
-            if (from === addresses[f]) {
+            if (src === addresses[f]) {
                 console.log(`Uv2Addresses: Detected trade on ${nameETH}!\n`)
-                bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
-                console.log(`Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+                bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${src}\nTo: ${dst}\nValue: ${ethers.utils.formatUnits(wad, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameETH}\nFrom: ${src}\nTo: ${dst}\nValue: ${ethers.utils.formatUnits(wad, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
         }
     })
@@ -824,12 +824,12 @@ const main = async () => {
     })
 
     //GOE
-    goeAddresses.on("Transfer", (from, to, value, data) => {
+    goeAddresses.on("Deposit", (dst, wad, value, data) => {
         for (let k = 0; k < addresses.length; k++) {
-            if (from === addresses[k]) {
+            if (dst == addresses[k]) {
                 console.log(`goeAddresses: Detected trade on ${nameGOE}!\n`)
-                bot.sendMessage("-1001613920275", `Name: ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
-                console.log(`Name: ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+                bot.sendMessage("-1001613920275", `Name: ${nameGOE}\nFrom: ${dst}\nTo: ${wad}`)
+                console.log(`Name: ${nameGOE}\nFrom: ${dst}\nTo: ${wad}`)
             }
         }
     })
