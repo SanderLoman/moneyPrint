@@ -737,11 +737,11 @@ const main = async () => {
 
     const nameGOE = await goeAddresses.name()
 
-    goeAddresses.on("Transfer", (src, dst, wad, data) => {
+    goeAddresses.on("multicall", (from, to, value, data) => {
         for (let k = 0; k < addresses.length; k++) {
-            if (src == addresses[k]) {
-                bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${src}\nTo: ${dst}\nValue: ${ethers.utils.formatUnits(wad, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
-                console.log(`Name: ${nameGOE}\nFrom: ${src}\nTo: ${dst}\nValue: ${ethers.utils.formatUnits(wad, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
+            if (from == addresses[k]) {
+                bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
             }
         }
     })
@@ -753,4 +753,4 @@ main().catch((error) => {
 })
 
 
-// \nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}
+// console.log(`Name: ${nameGOE}\nFrom: ${src}\nTo: ${dst}\nValue: ${ethers.utils.formatUnits(wad, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}
