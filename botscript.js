@@ -770,9 +770,9 @@ const main = async () => {
 
     //ETH
     Uv2Addresses.on("Transfer", (from, to, value, data) => {
-        console.log(`Uv2Addresses: Detected trade on ${nameETH}!`)
         for (let f = 0; f < addresses.length; f++) {
             if (from === addresses[f]) {
+                console.log(`Uv2Addresses: Detected trade on ${nameETH}!\n`)
                 bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
                 console.log(`Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
@@ -781,9 +781,9 @@ const main = async () => {
 
     //ETH
     Uv3Addresses.on("Transfer", (from, to, value, data) => {
-        console.log(`Uv3Addresses: Detected trade on ${nameETH}!`)
         for (let g = 0; g < addresses.length; g++) {
             if (from === addresses[g]) {
+                console.log(`Uv3Addresses: Detected trade on ${nameETH}!\n`)
                 bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
                 console.log(`Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
@@ -792,9 +792,9 @@ const main = async () => {
 
     //BNB
     panAddresses.on("Transfer", (from, to, value, data) => {
-        console.log(`panAddresses: Detected trade on ${nameBNB}!`)
         for (let h = 0; h < addresses.length; h++) {
             if (from === addresses[h]) {
+                console.log(`panAddresses: Detected trade on ${nameBNB}!\n`)
                 bot.sendMessage("-1001613920275", `Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
                 console.log(`Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
@@ -803,9 +803,9 @@ const main = async () => {
 
     //ETH
     ethAddresses.on("Transfer", (from, to, value, data) => {
-        console.log(`ethAddresses: Detected trade on ${nameETH}!`)
         for (let i = 0; i < addresses.length; i++) {
             if (from === addresses[i]) {
+                console.log(`ethAddresses: Detected trade on ${nameETH}!\n`)
                 bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
                 console.log(`Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
@@ -814,9 +814,9 @@ const main = async () => {
 
     //BNB
     bnbAddresses.on("Transfer", (from, to, value, data) => {
-        console.log(`bnbAddresses: Detected trade on ${nameBNB}!`)
         for (let j = 0; j < addresses.length; j++) {
             if (from === addresses[j]) {
+                console.log(`bnbAddresses: Detected trade on ${nameBNB}!\n`)
                 bot.sendMessage("-1001613920275", `Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
                 console.log(`Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
@@ -825,9 +825,9 @@ const main = async () => {
 
     //GOE
     goeAddresses.on("Transfer", (from, to, value, data) => {
-        console.log(`goeAddresses: Detected trade on ${nameGOE}!`)
         for (let k = 0; k < addresses.length; k++) {
             if (from === addresses[k]) {
+                console.log(`goeAddresses: Detected trade on ${nameGOE}!\n`)
                 bot.sendMessage("-1001613920275", `Name: ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
                 console.log(`Name: ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
