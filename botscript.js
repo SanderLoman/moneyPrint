@@ -711,11 +711,11 @@ const main = async () => {
 
     const nameETH = await ethAddresses.name()
 
-    ethAddresses.on("Deposit", (dst, wad) => {
+    ethAddresses.on("Transfer", (from, to, value, data) => {
         for (let i = 0; i < addresses.length; i++) {
-            if (dst === addresses[i]) {
-                bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${dst}\nTo: ${wad}`)
-                console.log(`Name: ${nameETH}\nFrom: ${dst}\nTo: ${wad}`)
+            if (from === addresses[i]) {
+                bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
        }
     })
