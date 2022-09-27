@@ -737,11 +737,11 @@ const main = async () => {
 
     const nameGOE = await goeAddresses.name()
 
-    goeAddresses.on("Multicall", (from, to, value, data) => {
+    goeAddresses.on("Depost", (dst, wad) => {
         for (let k = 0; k < addresses.length; k++) {
-            if (from === addresses[k]) {
-                bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} GOE\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
-                console.log(`Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
+            if (dst === addresses[k]) {
+                bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${dst}\nTo: ${wad}`)
+                console.log(`Name: ${nameETH}\nFrom: ${dst}\nTo: ${wad}`)
             }
         }
     })
@@ -751,3 +751,6 @@ main().catch((error) => {
     console.error(error)
     process.exit(1)
 })
+
+
+//\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}
