@@ -737,7 +737,7 @@ const main = async () => {
 
     const nameGOE = await goeAddresses.name()
 
-    goeAddresses.on("Deposit", (dst, wad) => {
+    goeAddresses.on("Transfer", (dst, wad) => {
         for (let k = 0; k < addresses.length; k++) {
             if (dst === addresses[k]) {
                 bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${dst}\nTo: ${wad}`)
