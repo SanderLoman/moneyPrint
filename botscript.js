@@ -753,4 +753,4 @@ main().catch((error) => {
 })
 
 
-//\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}
+// \nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}
