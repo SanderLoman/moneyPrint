@@ -713,7 +713,7 @@ const main = async () => {
 
     ethAddresses.on("Transfer", (from, to, value, data) => {
         for (let i = 0; i < addresses.length; i++) {
-            if (from === addresses[i]) {
+            if (from == addresses[i]) {
                 bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
                 console.log(`Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
@@ -726,7 +726,7 @@ const main = async () => {
 
     bnbAddresses.on("Transfer", (from, to, value, data) => {
        for (let j = 0; j < addresses.length; j++) {
-            if (from === addresses[j]) {
+            if (from == addresses[j]) {
                 bot.sendMessage("-1001613920275", `Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
                 console.log(`Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
             }
@@ -737,11 +737,11 @@ const main = async () => {
 
     const nameGOE = await goeAddresses.name()
 
-    goeAddresses.on("Transfer", (dst, wad) => {
+    goeAddresses.on("Transfer", (from, to, value, data) => {
         for (let k = 0; k < addresses.length; k++) {
-            if (dst === addresses[k]) {
-                bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${dst}\nTo: ${wad}`)
-                console.log(`Name: ${nameGOE}\nFrom: ${dst}\nTo: ${wad}`)
+            if (from == addresses[k]) {
+                bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
             }
         }
     })
