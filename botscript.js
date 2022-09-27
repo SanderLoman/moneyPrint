@@ -36,8 +36,8 @@ const ETH_CONTRACT_ABI = [
     {
         constant: false,
         inputs: [
-            { name: "_spender", type: "address" },
-            { name: "_value", type: "uint256" },
+            { name: "guy", type: "address" },
+            { name: "wad", type: "uint256" },
         ],
         name: "approve",
         outputs: [{ name: "", type: "bool" }],
@@ -57,12 +57,21 @@ const ETH_CONTRACT_ABI = [
     {
         constant: false,
         inputs: [
-            { name: "_from", type: "address" },
-            { name: "_to", type: "address" },
-            { name: "_value", type: "uint256" },
+            { name: "src", type: "address" },
+            { name: "dst", type: "address" },
+            { name: "wad", type: "uint256" },
         ],
         name: "transferFrom",
         outputs: [{ name: "", type: "bool" }],
+        payable: false,
+        stateMutability: "nonpayable",
+        type: "function",
+    },
+    {
+        constant: false,
+        inputs: [{ name: "wad", type: "uint256" }],
+        name: "withdraw",
+        outputs: [],
         payable: false,
         stateMutability: "nonpayable",
         type: "function",
@@ -78,9 +87,9 @@ const ETH_CONTRACT_ABI = [
     },
     {
         constant: true,
-        inputs: [{ name: "_owner", type: "address" }],
+        inputs: [{ name: "", type: "address" }],
         name: "balanceOf",
-        outputs: [{ name: "balance", type: "uint256" }],
+        outputs: [{ name: "", type: "uint256" }],
         payable: false,
         stateMutability: "view",
         type: "function",
@@ -97,8 +106,8 @@ const ETH_CONTRACT_ABI = [
     {
         constant: false,
         inputs: [
-            { name: "_to", type: "address" },
-            { name: "_value", type: "uint256" },
+            { name: "dst", type: "address" },
+            { name: "wad", type: "uint256" },
         ],
         name: "transfer",
         outputs: [{ name: "", type: "bool" }],
@@ -107,10 +116,19 @@ const ETH_CONTRACT_ABI = [
         type: "function",
     },
     {
+        constant: false,
+        inputs: [],
+        name: "deposit",
+        outputs: [],
+        payable: true,
+        stateMutability: "payable",
+        type: "function",
+    },
+    {
         constant: true,
         inputs: [
-            { name: "_owner", type: "address" },
-            { name: "_spender", type: "address" },
+            { name: "", type: "address" },
+            { name: "", type: "address" },
         ],
         name: "allowance",
         outputs: [{ name: "", type: "uint256" }],
@@ -122,9 +140,9 @@ const ETH_CONTRACT_ABI = [
     {
         anonymous: false,
         inputs: [
-            { indexed: true, name: "owner", type: "address" },
-            { indexed: true, name: "spender", type: "address" },
-            { indexed: false, name: "value", type: "uint256" },
+            { indexed: true, name: "src", type: "address" },
+            { indexed: true, name: "guy", type: "address" },
+            { indexed: false, name: "wad", type: "uint256" },
         ],
         name: "Approval",
         type: "event",
@@ -132,11 +150,29 @@ const ETH_CONTRACT_ABI = [
     {
         anonymous: false,
         inputs: [
-            { indexed: true, name: "from", type: "address" },
-            { indexed: true, name: "to", type: "address" },
-            { indexed: false, name: "value", type: "uint256" },
+            { indexed: true, name: "src", type: "address" },
+            { indexed: true, name: "dst", type: "address" },
+            { indexed: false, name: "wad", type: "uint256" },
         ],
         name: "Transfer",
+        type: "event",
+    },
+    {
+        anonymous: false,
+        inputs: [
+            { indexed: true, name: "dst", type: "address" },
+            { indexed: false, name: "wad", type: "uint256" },
+        ],
+        name: "Deposit",
+        type: "event",
+    },
+    {
+        anonymous: false,
+        inputs: [
+            { indexed: true, name: "src", type: "address" },
+            { indexed: false, name: "wad", type: "uint256" },
+        ],
+        name: "Withdrawal",
         type: "event",
     },
 ]
@@ -731,9 +767,10 @@ const main = async () => {
     const nameBNB = await bnbAddresses.name()
     const nameETH = await ethAddresses.name()
     const nameGOE = await goeAddresses.name()
-    
+
     //ETH
     Uv2Addresses.on("Transfer", (from, to, value, data) => {
+        console.log(`Uv2Addresses: Detected trade on ${nameETH}!`)
         for (let f = 0; f < addresses.length; f++) {
             if (from === addresses[f]) {
                 bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
@@ -744,6 +781,7 @@ const main = async () => {
 
     //ETH
     Uv3Addresses.on("Transfer", (from, to, value, data) => {
+        console.log(`Uv3Addresses: Detected trade on ${nameETH}!`)
         for (let g = 0; g < addresses.length; g++) {
             if (from === addresses[g]) {
                 bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
@@ -754,16 +792,18 @@ const main = async () => {
 
     //BNB
     panAddresses.on("Transfer", (from, to, value, data) => {
+        console.log(`panAddresses: Detected trade on ${nameBNB}!`)
         for (let h = 0; h < addresses.length; h++) {
             if (from === addresses[h]) {
-                bot.sendMessage("-1001613920275", `Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
-                console.log(`Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
+                bot.sendMessage("-1001613920275", `Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
         }
     })
 
     //ETH
     ethAddresses.on("Transfer", (from, to, value, data) => {
+        console.log(`ethAddresses: Detected trade on ${nameETH}!`)
         for (let i = 0; i < addresses.length; i++) {
             if (from === addresses[i]) {
                 bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
@@ -774,20 +814,22 @@ const main = async () => {
 
     //BNB
     bnbAddresses.on("Transfer", (from, to, value, data) => {
+        console.log(`bnbAddresses: Detected trade on ${nameBNB}!`)
         for (let j = 0; j < addresses.length; j++) {
             if (from === addresses[j]) {
-                bot.sendMessage("-1001613920275", `Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
-                console.log(`Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
+                bot.sendMessage("-1001613920275", `Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameBNB}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
         }
     })
 
     //GOE
     goeAddresses.on("Transfer", (from, to, value, data) => {
+        console.log(`goeAddresses: Detected trade on ${nameGOE}!`)
         for (let k = 0; k < addresses.length; k++) {
             if (from === addresses[k]) {
-                bot.sendMessage("-1001613920275", `Name: Goerli ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
-                console.log(`Name: ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://goerli.etherscan.io/tx/${data.transactionHash}`)
+                bot.sendMessage("-1001613920275", `Name: ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
+                console.log(`Name: ${nameGOE}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
         }
     })
