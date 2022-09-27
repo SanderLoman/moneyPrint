@@ -714,9 +714,9 @@ const main = async () => {
     ethAddresses.on("Transfer", (from, to, value, data) => {
         for (let i = 0; i < addresses.length; i++) {
             if (from === addresses[i]) {
-                bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://bscscan.com/tx/${data.transactionHash}`)
+                bot.sendMessage("-1001613920275", `Name: ${nameETH}\nFrom: ${from}\nTo: ${to}\nValue: ${ethers.utils.formatUnits(value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${data.transactionHash}`)
             }
-        }
+       }
     })
 
     //BNB mainnet
