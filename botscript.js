@@ -23,6 +23,7 @@ const addresses = [
     "0xA7D04CA1E2E7008A807eB6Fd34D8A8E7ce45B865" /** Track wallet              */,
     "0xbbA6aDd128D8d4fBc55AbD7769c92D5A73bDc31d" /** Track wallet              */,
     "0x1d80900c7c302304eE4d1E2fe632c1605Aab3E1A" /** Jelle ETH wallet          */,
+    "0xb70eb976b606f3fdff135c413b9cad2a906af343" /** Whale Wallet ETH          */,
 ]
 
 const main = async () => {
