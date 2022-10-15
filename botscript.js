@@ -24,6 +24,7 @@ const addresses = [
     "0xbbA6aDd128D8d4fBc55AbD7769c92D5A73bDc31d" /** Track wallet              */,
     "0x1d80900c7c302304eE4d1E2fe632c1605Aab3E1A" /** Jelle ETH wallet          */,
     "0xb70eb976b606f3fdff135c413b9cad2a906af343" /** Whale Wallet ETH          */,
+    "0x71ff3A04dc7b1eE71810e926D1AE71ad61A9cFDd" /** maybe gods wallet         */,
 ]
 
 const main = async () => {
@@ -35,16 +36,19 @@ const main = async () => {
                 if (tx.from == addresses[j]) {
                     if (tx.from == "7B23298319Ea680e73059AE6eB1fF4162C9bD89e") { //sander
                         console.log(`Name: Wrapped Ether\nNW: Sander Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
-                        bot.sendMessage("-1001613920275", `Name: Wrapped Ether\nNW: Sander Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)                        
+                        bot.sendMessage("-1001613920275", `Name: Wrapped Ether\nNW: Sander Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
                     } else if (tx.from == "0xE4A040AE4bAD72CdC5594695d2f8Efac0fA873cf") { //jelle bsc 
                         console.log(`Name: Wrapped Ether\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
-                        bot.sendMessage("-1001613920275", `Name: Wrapped Ether\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)      
+                        bot.sendMessage("-1001613920275", `Name: Wrapped Ether\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
                     } else if (tx.from == "0x1d80900c7c302304eE4d1E2fe632c1605Aab3E1A") { //jelle eth
                         console.log(`Name: Wrapped Ether\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
-                        bot.sendMessage("-1001613920275", `Name: Wrapped Ether\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)      
+                        bot.sendMessage("-1001613920275", `Name: Wrapped Ether\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
+                    } else if (tx.from == "0x71ff3A04dc7b1eE71810e926D1AE71ad61A9cFDd") { //gods wallet
+                        console.log(`Name: Wrapped Ether\nNW: Maybe Gods Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
+                        bot.sendMessage("-1001613920275", `Name: Wrapped Ether\nNW: Maybe Gods Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
                     } else { //random
                         console.log(`Name: Wrapped Ether\nNW: Random Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
-                        bot.sendMessage("-1001613920275", `Name: Wrapped Ether\nNW: Random Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)                        
+                        bot.sendMessage("-1001613920275", `Name: Wrapped Ether\nNW: Random Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
                     }
                 }
             }
@@ -60,13 +64,16 @@ const main = async () => {
                         bot.sendMessage("-1001613920275", `Name: Wrapped BNB\nNW: Sander Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
                     } else if (tx.from == "0xE4A040AE4bAD72CdC5594695d2f8Efac0fA873cf") { //jelle bsc
                         console.log(`Name: Wrapped BNB\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
-                        bot.sendMessage("-1001613920275", `Name: Wrapped BNB\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)      
+                        bot.sendMessage("-1001613920275", `Name: Wrapped BNB\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
                     } else if (tx.from == "0x1d80900c7c302304eE4d1E2fe632c1605Aab3E1A") { //jelle eth
                         console.log(`Name: Wrapped BNB\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
-                        bot.sendMessage("-1001613920275", `Name: Wrapped BNB\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)      
+                        bot.sendMessage("-1001613920275", `Name: Wrapped BNB\nNW: Jelle Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
+                    } else if (tx.from == "0x71ff3A04dc7b1eE71810e926D1AE71ad61A9cFDd") { //gods wallet
+                        console.log(`Name: Wrapped BNB\nNW: Maybe Gods Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
+                        bot.sendMessage("-1001613920275", `Name: Wrapped BNB\nNW: Maybe Gods Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
                     } else { //random
                         console.log(`Name: Wrapped BNB\nNW: Random Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
-                        bot.sendMessage("-1001613920275", `Name: Wrapped BNB\nNW: Random Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)                        
+                        bot.sendMessage("-1001613920275", `Name: Wrapped BNB\nNW: Random Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
                     }
                 }
             }
