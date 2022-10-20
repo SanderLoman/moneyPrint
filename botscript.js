@@ -99,8 +99,8 @@ const main = async () => {
             for (let k = 0; k < addresses.length; k++) {
                 if (tx.from == addresses[k]) {
                     if (tx.from == TestWallet) {
-                        console.log(`<a href='https://goerli.etherscan.io/address/${tx.from}'>Test Wallet</a> GOE\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} GOE\n\n<a href='https://goerli.etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
-                        bot.sendMessage("-1001613920275", `<a href='https://goerli.etherscan.io/address/${tx.from}'>Test Wallet</a> GOE\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} GOE\n\n<a href='https://goerli.etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        console.log(`<a href='https://goerli.etherscan.io/address/${tx.from}'>Test Wallet</a> GOE\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} GOE\n<a href='https://goerli.etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://goerli.etherscan.io/address/${tx.from}'>Test Wallet</a> GOE\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} GOE\n<a href='https://goerli.etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
                     }
                 }
             }
