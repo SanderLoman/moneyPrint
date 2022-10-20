@@ -42,21 +42,24 @@ const main = async () => {
         providerETH.getTransaction(TxHash).then((tx) => {
             for (let j = 0; j < addresses.length; j++) {
                 if (tx.from == addresses[j]) {
-                    if (tx.from == SanderWallet || Sanderwallet2) { //sander
+                    if (tx.from == SanderWallet) { //sander
                         console.log(`<a href='https://etherscan.io/address/${tx.from}'>Sander Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
-                        bot.sendMessage("-1001613920275", `<a href='https://etherscan.io/address/${tx.from}'>Sander Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://etherscan.io/address/${tx.from}'>Sander Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                    } else if (tx.from == Sanderwallet2) { //sander
+                        console.log(`<a href='https://etherscan.io/address/${tx.from}'>Sander Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://etherscan.io/address/${tx.from}'>Sander Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
                     } else if (tx.from == JelleBscWallet) { //jelle bsc 
-                        console.log(`<a href='https://etherscan.io/address/${tx.from}'>Jelle Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
-                        bot.sendMessage("-1001613920275", `<a href='https://etherscan.io/address/${tx.from}'>Jelle Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        console.log(`<a href='https://etherscan.io/address/${tx.from}'>Jelle Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://etherscan.io/address/${tx.from}'>Jelle Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
                     } else if (tx.from == JelleEthWallet) { //jelle eth
-                        console.log(`<a href='https://etherscan.io/address/${tx.from}'>Jelle Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
-                        bot.sendMessage("-1001613920275", `<a href='https://etherscan.io/address/${tx.from}'>Jelle Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        console.log(`<a href='https://etherscan.io/address/${tx.from}'>Jelle Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://etherscan.io/address/${tx.from}'>Jelle Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
 //                    } else if (tx.from == "0x71ff3A04dc7b1eE71810e926D1AE71ad61A9cFDd") { //gods wallet
 //                        console.log(`Name: Wrapped Ether\nNW: Maybe Gods Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
 //                        bot.sendMessage("-1001613920275", `Name: Wrapped Ether\nNW: Maybe Gods Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\nTxHash: https://etherscan.io/tx/${TxHash}\n`)
                     } else { //random
-                        console.log(`<a href='https://etherscan.io/address/${tx.from}'>Random Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
-                        bot.sendMessage("-1001613920275", `<a href='https://etherscan.io/address/${tx.from}'>Random Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        console.log(`<a href='https://etherscan.io/address/${tx.from}'>Random Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://etherscan.io/address/${tx.from}'>Random Wallet</a> ETH\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} ETH\n<a href='https://etherscan.io/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
                     }
                 }
             }
@@ -67,21 +70,24 @@ const main = async () => {
         providerBNB.getTransaction(TxHash).then((tx) => {
             for (let j = 0; j < addresses.length; j++) {
                 if (tx.from == addresses[j]) {
-                    if (tx.from == SanderWallet || Sanderwallet2){ //sander
+                    if (tx.from == SanderWallet){ //sander
+                        console.log(`<a href='https://bscscan.com/address/${tx.from}'>Sander Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://bscscan.com/address/${tx.from}'>Sander Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                    } else if (tx.from == Sanderwallet2) { //sander
                         console.log(`<a href='https://bscscan.com/address/${tx.from}'>Sander Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
-                        bot.sendMessage("-1001613920275", `<a href='https://bscscan.com/address/${tx.from}'>Sander Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://bscscan.com/address/${tx.from}'>Sander Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
                     } else if (tx.from == JelleBscWallet) { //jelle bsc
-                        console.log(`<a href='https://bscscan.com/address/${tx.from}'>Jelle Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
-                        bot.sendMessage("-1001613920275", `<a href='https://bscscan.com/address/${tx.from}'>Jelle Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        console.log(`<a href='https://bscscan.com/address/${tx.from}'>Jelle Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://bscscan.com/address/${tx.from}'>Jelle Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
                     } else if (tx.from == JelleEthWallet) { //jelle eth
-                        console.log(`<a href='https://bscscan.com/address/${tx.from}'>Jelle Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
-                        bot.sendMessage("-1001613920275", `<a href='https://bscscan.com/address/${tx.from}'>Jelle Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        console.log(`<a href='https://bscscan.com/address/${tx.from}'>Jelle Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://bscscan.com/address/${tx.from}'>Jelle Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
 //                    } else if (tx.from == "0x71ff3A04dc7b1eE71810e926D1AE71ad61A9cFDd") { //gods wallet
 //                       console.log(`Name: Wrapped BNB\nNW: Maybe Gods Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
 //                        bot.sendMessage("-1001613920275", `Name: Wrapped BNB\nNW: Maybe Gods Wallet\nFrom: ${tx.from}\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\nTxHash: https://bscscan.com/tx/${TxHash}\n`)
                     } else { //random
-                        console.log(`<a href='https://bscscan.com/address/${tx.from}'>Random Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
-                        bot.sendMessage("-1001613920275", `<a href='https://bscscan.com/address/${tx.from}'>Random Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        console.log(`<a href='https://bscscan.com/address/${tx.from}'>Random Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
+                        bot.sendMessage("-1001613920275", `<a href='https://bscscan.com/address/${tx.from}'>Random Wallet</a> BNB\nTo: ${tx.to}\nValue: ${ethers.utils.formatUnits(tx.value, 18)} BNB\n<a href='https://bscscan.com/tx/${TxHash}'>TxHash</a>\n`, { parse_mode: "HTML", disable_web_page_preview: true })
                     }
                 }
             }
